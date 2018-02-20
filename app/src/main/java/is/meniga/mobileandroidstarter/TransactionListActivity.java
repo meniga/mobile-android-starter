@@ -8,13 +8,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.internal.LinkedTreeMap;
+import com.meniga.sdk.MenigaSDK;
 import com.meniga.sdk.models.transactions.MenigaTransaction;
 import com.meniga.sdk.models.transactions.MenigaTransactionPage;
 import com.meniga.sdk.models.transactions.TransactionsFilter;
 import com.meniga.sdk.providers.tasks.Continuation;
 import com.meniga.sdk.providers.tasks.Task;
+import com.meniga.sdk.webservices.APIRequest;
+import com.meniga.sdk.webservices.HttpMethod;
 
 import org.joda.time.DateTime;
+
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +69,17 @@ public class TransactionListActivity extends AppCompatActivity {
                 return null;
             }
         });
+
+        APIRequest.genericRequest(HttpMethod.GET, BuildConfig.API_BASE_URL + "/me?includeAll=true").getTask().continueWith(new Continuation<Object, Object>() {
+            @Override
+            public Object then(Task<Object> task) throws Exception {
+                if (!task.isFaulted()) {
+                    LinkedTreeMap data = ((List<LinkedTreeMap>) ((Map)task.getResult()).get("data")).get(0);
+                    toolbar.setTitle(data.get("email").toString());
+                }
+                return null;
+            }
+        }, Task.UI_THREAD_EXECUTOR);
     }
 
     private void showBusy(boolean show) {
