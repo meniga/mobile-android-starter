@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "is.meniga.mobileandroidstarter"
+        minSdkVersion 23
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "API_BASE_URL", "\"http://api.umw.meniga.net/user/v1\""
+        buildConfigField "String", "CLIENT_SECRET", "\"b29tcGFsb29tcGE=\""
+    }
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    maven { url 'https://maven.fabric.io/public' }
+    mavenCentral()
+    mavenLocal()
+    google()
+    maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
+    maven {
+        url 'http://mobiledev.meniga.com/artifactory/meniga/'
+        credentials {
+            username 'sdk-user'
+            password 'AKCp2V5pNJe2ioDcpZ9KkxLAqh7436kczKk1Xp4a6C3joM4w9N5KbRK7YEG7HppvQmmBn8sRc'
+        }
+    }
+}
+
+dependencies {
+    api('com.meniga:sdk:1.1.32') { changing = true }
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}

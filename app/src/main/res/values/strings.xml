@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Mobile Android Starter</string>
+    <string name="title_activity_transaction_list">Transactions</string>
+
+    <string name="is.meniga.androidapp.CLIENT_ID" translatable="false">mobile_android</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Log in</string>
+    <string name="wrong_email_or_password">Incorrect email or password. Try again.</string>
+    <string name="error_logging_in">Error logging in.</string>
+
+    <string name="error_loading_transactions">Error loading transactions: %s</string>
+</resources>
